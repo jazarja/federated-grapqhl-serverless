@@ -1,0 +1,35 @@
+service: fgql-gateway
+provider:
+  name: aws
+  region: ap-southeast-1
+  stage: ${opt:stage, 'dev'}
+  runtime: nodejs12.x
+  versionFunctions: false
+  memorySize: 512
+  timeout: 30
+  environment:
+    ENV: '${opt:stage}'
+resources:
+  Resources:
+    AuthorizerApiGatewayResponse:
+      Type: "AWS::ApiGateway::GatewayResponse"
+      Properties:
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+        ResponseType: DEFAULT_4XX
+        RestApiId: {"Ref": "ApiGatewayRestApi"}
+plugins:
+  - serverless-prune-plugin
+functions:
+  graphql:
+    handler: graphql.main
+    events:
+      - http:
+          path: graphql
+          cors: true
+          method: POST
+      - http:
+          path: graphql
+          cors: true
+          method: GET

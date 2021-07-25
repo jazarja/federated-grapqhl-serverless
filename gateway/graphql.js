@@ -5,7 +5,7 @@ const {ApolloGateway, RemoteGraphQLDataSource} = require('@apollo/gateway');
 const gateway = new ApolloGateway({
     serviceList: [
         {name: 'instrument', url: 'https://nowey5t7y1.execute-api.ap-southeast-1.amazonaws.com/dev/instrument'},
-        {name: 'market', url: 'https://nowey5t7y1.execute-api.ap-southeast-1.amazonaws.com/dev/market'},
+        {name: 'exchange', url: 'https://nowey5t7y1.execute-api.ap-southeast-1.amazonaws.com/dev/exchange'},
     ],
     buildService({ url }) {
         return new RemoteGraphQLDataSource({

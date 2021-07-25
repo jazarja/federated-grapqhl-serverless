@@ -7,10 +7,12 @@ const typeDefs = require("./schemas/instrument");
 
 const resolvers = {
     Instrument: {
+        exchange: (instrument) => ({ __typename: 'Exchange', id: instrument.exchange }),
+
         __resolveReference: async (ref) => {
             let result = {
                 name: "name",
-                market: "market",
+                exchange: "IDX",
                 id: ref.id,
             };
 
@@ -18,10 +20,10 @@ const resolvers = {
         },
     },
     Query: {
-        getAllInstrument: async (parent, {}, context, info) => {
+        allInstruments: async (parent, {}, context, info) => {
             return [
-                {"id" : "ASII", "market" : "IDX", "name" : "Astra"},
-                {"id" : "BBCA", "market" : "IDX", "name" : "BCA"},
+                {"id" : "ASII", "exchange" : "IDX", "name" : "Astra"},
+                {"id" : "BBCA", "exchange" : "IDX", "name" : "BCA"},
             ]
         },
     },
@@ -29,7 +31,7 @@ const resolvers = {
         updateInstrument: async (__, {input}, context, info) => {
             let result = {
                 name: input.name,
-                market: "market",
+                exchange: "IDX",
                 id: "id",
             };
 

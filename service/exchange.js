@@ -2,24 +2,25 @@ const _ = require('lodash')
 const {ApolloServer} = require('apollo-server-lambda');
 const {buildFederatedSchema} = require("@apollo/federation");
 
-const typeDefs = require('./schemas/market');
+const typeDefs = require('./schemas/exchange');
 
 const resolvers = {
-    Market: {
+    Exchange: {
         __resolveReference: async (ref) => {
             let result = {
-                name: "name",
-                market: "market",
-                id: "id",
+                name: "Exchange: "+ref.id,
+                country: "Global",
+                id: ref.id,
             };
 
             return result;
         },
     },
     Query: {
-        getAllMarket: async (parent, {}, context, info) => {
+        allExchanges: async (parent, {}, context, info) => {
             return [
                 {"id": "IDX", "name": "Indonesia Stock Exchange", "country": "ID"},
+                {"id": "NYSE", "name": "New York Stock Exchange", "country": "US"},
             ]
         },
     },

@@ -5,24 +5,24 @@ const typeDefs = gql`
   type Instrument @key(fields: "id") {
     id: ID!
     name: String
-    market: Market
+    exchange: Exchange
   }
   
-  extend type Market @key(fields: "id") {
+  extend type Exchange @key(fields: "id") {
     id: ID! @external
   }
   
   extend type Query {
-    getAllInstrument: [Instrument]
+    allInstruments: [Instrument]
   }
   
   # Mutation schema
-  input instrument_update_input {
+  input InstrumentUpdateInput {
     name: String!
   }
   
   extend type Mutation {
-    updateInstrument(input: instrument_update_input): Instrument
+    updateInstrument(input: InstrumentUpdateInput): Instrument
   }  
 `;
 module.exports = typeDefs;

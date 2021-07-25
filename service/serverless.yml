@@ -33,14 +33,14 @@ functions:
           path: instrument
           cors: true
           method: GET
-  market:
-    handler: market.main
+  exchange:
+    handler: exchange.main
     events:
       - http:
-          path: market
+          path: exchange
           cors: true
           method: POST
       - http:
-          path: market
+          path: exchange
           cors: true
           method: GET
